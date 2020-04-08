@@ -1,13 +1,18 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
+    "name": "halilsafakkilic/slim-skeleton",
+    "description": "We apply current approaches and best practice examples with Slim v4.",
     "keywords": [
         "microframework",
         "rest",
         "router",
-        "psr7"
+        "psr7",
+        "domain driven design",
+        "cqrs",
+        "doctrine",
+        "debugging",
+        "logging"
     ],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "http://github.com/halilsafakkilic/Slim4-Playground",
     "license": "MIT",
     "authors": [
         {
@@ -19,18 +24,25 @@
             "name": "Pierre Berube",
             "email": "pierre@lgse.com",
             "homepage": "http://www.lgse.com/"
+        },
+        {
+            "name": "Halil Safak KILIC",
+            "email": "hi@halilsafakkilic.com",
+            "homepage": "https://halilsafakkilic.com/"
         }
     ],
     "require": {
+        "php": ">=7.4",
         "ext-json": "*",
+        "doctrine/orm": "^2.6.2",
         "monolog/monolog": "^1.24",
-        "php": ">=7.1",
         "php-di/php-di": "^6.0",
+        "ramsey/uuid-doctrine": "^1.6",
         "slim/psr7": "^0.5",
         "slim/slim": "^4.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "process-timeout": 0,
@@ -41,13 +53,9 @@
             "App\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "scripts": {
-        "start": "php -S localhost:8080 -t public",
+        "start": "php -S localhost:8181 -t public",
+        "debug": "/bin/php -dxdebug.remote_enable=1 -dxdebug.remote_mode=req -dxdebug.remote_port=9000 -dxdebug.remote_host=127.0.0.1 -S localhost:8080 -t public",
         "test": "phpunit"
     }
 }
