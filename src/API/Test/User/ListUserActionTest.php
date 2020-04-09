@@ -7,9 +7,12 @@ use App\Domain\User\Model\User;
 use App\API\Controller\ActionPayload;
 use DI\Container;
 use App\API\Test\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ListUserActionTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testAction()
     {
         $app = $this->getAppInstance();

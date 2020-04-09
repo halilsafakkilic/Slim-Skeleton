@@ -42,6 +42,7 @@
         "slim/slim": "^4.1"
     },
     "require-dev": {
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.0"
     },
     "config": {

@@ -9,11 +9,14 @@ use App\Domain\User\Model\User;
 use App\Domain\User\Exception\UserNotFoundException;
 use App\API\Infrastructure\ErrorHandler;
 use DI\Container;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Slim\Middleware\ErrorMiddleware;
 use App\API\Test\TestCase;
 
 class ViewUserActionTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testAction()
     {
         $app = $this->getAppInstance();
