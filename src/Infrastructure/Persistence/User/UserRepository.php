@@ -5,6 +5,7 @@ namespace App\Infrastructure\Persistence\User;
 use App\Domain\User\Model\User;
 use App\Domain\User\Exception\UserNotFoundException;
 use App\Domain\User\Infrastructure\IUserRepository;
+use App\Infrastructure\Core\Uuid\Uuid;
 
 class UserRepository implements IUserRepository
 {
@@ -14,18 +15,24 @@ class UserRepository implements IUserRepository
     private $users;
 
     /**
-     * InMemoryUserRepository constructor.
+     * In Memory Repository
      *
      * @param array|null $users
      */
     public function __construct(array $users = null)
     {
+        $id1 = Uuid::fromString('bba7d06e-7cea-11ea-b490-0242ac130002');
+        $id2 = Uuid::fromString('bba7f77e-7cea-11ea-844a-0242ac130002');
+        $id3 = Uuid::fromString('bba80700-7cea-11ea-8273-0242ac130002');
+        $id4 = Uuid::fromString('bba8165a-7cea-11ea-bc11-0242ac130002');
+        $id5 = Uuid::fromString('bba825d2-7cea-11ea-842c-0242ac130002');
+
         $this->users = $users ?? [
-                1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-                2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-                3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-                4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-                5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
+                (string) $id1 => new User('bill.gates', 'Bill', 'Gates', $id1),
+                (string) $id2 => new User('steve.jobs', 'Steve', 'Jobs', $id2),
+                (string) $id3 => new User('mark.zuckerberg', 'Mark', 'Zuckerberg', $id3),
+                (string) $id4 => new User('evan.spiegel', 'Evan', 'Spiegel', $id4),
+                (string) $id5 => new User('jack.dorsey', 'Jack', 'Dorsey', $id5),
             ];
     }
 
@@ -40,7 +47,7 @@ class UserRepository implements IUserRepository
     /**
      * {@inheritdoc}
      */
-    public function findUserOfId(int $id): User
+    public function findUserOfId(string $id): User
     {
         if (!isset($this->users[$id])) {
             throw new UserNotFoundException();

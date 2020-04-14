@@ -2,9 +2,10 @@
 
 namespace App\API\Test\User;
 
+use App\API\DTO\User\UserDTO;
 use App\Domain\User\Infrastructure\IUserRepository;
 use App\Domain\User\Model\User;
-use App\API\Controller\ActionPayload;
+use App\Infrastructure\Core\AutoMapper;
 use DI\Container;
 use App\API\Test\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -20,7 +21,7 @@ class ListUserActionTest extends TestCase
         /** @var Container $container */
         $container = $app->getContainer();
 
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $user = new User('bill.gates', 'Bill', 'Gates');
 
         $userRepositoryProphecy = $this->prophesize(IUserRepository::class);
         $userRepositoryProphecy
@@ -34,8 +35,7 @@ class ListUserActionTest extends TestCase
         $response = $app->handle($request);
 
         $payload = (string) $response->getBody();
-        $expectedPayload = new ActionPayload(200, [$user]);
-        $serializedPayload = json_encode($expectedPayload, JSON_PRETTY_PRINT);
+        $serializedPayload = json_encode(AutoMapper::fromList([$user], UserDTO::class), JSON_PRETTY_PRINT);
 
         $this->assertEquals($serializedPayload, $payload);
     }

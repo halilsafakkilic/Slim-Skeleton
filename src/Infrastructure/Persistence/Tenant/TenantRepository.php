@@ -4,6 +4,7 @@ namespace App\Infrastructure\Persistence\Tenant;
 
 use App\Domain\Tenant\Infrastructure\ITenantRepository;
 use App\Domain\Tenant\Model\Tenant;
+use App\Infrastructure\Core\Uuid\IUuid;
 use App\Infrastructure\Persistence\Common\Doctrine\IDoctrine;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -19,18 +20,17 @@ class TenantRepository implements ITenantRepository
     }
 
     /**
-     * @return string
+     * @param IUuid $id
+     *
      * @throws ORMException
      */
-    public function addRandom(): string
+    public function addRandom(IUuid $id)
     {
-        $tenant = new Tenant();
+        $tenant = new Tenant($id);
         $tenant->setRandomName();
         $tenant->addRandomSite();
 
         $this->_doctrine->getEntityManager()->persist($tenant);
-
-        return $tenant->getID();
     }
 
     /**

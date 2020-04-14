@@ -2,7 +2,7 @@
 
 namespace App\Domain\User\Exception;
 
-use App\Domain\Exception\DomainRecordNotFoundException;
+use App\Domain\Common\Exception\DomainRecordNotFoundException;
 
 class UserNotFoundException extends DomainRecordNotFoundException
 {

@@ -2,7 +2,7 @@
 
 namespace App\API\Controller;
 
-use App\Domain\Exception\DomainRecordNotFoundException;
+use App\Domain\Common\Exception\DomainRecordNotFoundException;
 use App\Infrastructure\Service\IService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -92,24 +92,13 @@ abstract class Action
     }
 
     /**
-     * @param array|object|null $data
+     * @param array|object $data
      *
      * @return Response
      */
-    protected function respondWithData($data = null): Response
+    protected function respond($data): Response
     {
-        $payload = new ActionPayload(200, $data);
-        return $this->respond($payload);
-    }
-
-    /**
-     * @param ActionPayload $payload
-     *
-     * @return Response
-     */
-    protected function respond(ActionPayload $payload): Response
-    {
-        $json = json_encode($payload, JSON_PRETTY_PRINT);
+        $json = json_encode($data, JSON_PRETTY_PRINT);
         $this->response->getBody()->write($json);
         return $this->response->withHeader('Content-Type', 'application/json');
     }

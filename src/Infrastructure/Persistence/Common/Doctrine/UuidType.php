@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Persistence\Common\Doctrine;
 
+use App\Infrastructure\Core\Uuid\IUuid;
+use App\Infrastructure\Core\Uuid\Uuid;
 use Doctrine\DBAL\Types\ConversionException;
 use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
@@ -27,7 +27,7 @@ class UuidType extends Type
      * @param mixed            $value
      * @param AbstractPlatform $platform
      *
-     * @return string|UuidInterface|null
+     * @return string|IUuid|null
      * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
@@ -36,7 +36,7 @@ class UuidType extends Type
             return null;
         }
 
-        if ($value instanceof UuidInterface) {
+        if ($value instanceof IUuid) {
             $value = $value->toString();
         }
 
@@ -63,7 +63,7 @@ class UuidType extends Type
         }
 
         if (
-            $value instanceof UuidInterface
+            $value instanceof IUuid
             || (
                 (is_string($value)
                     || method_exists($value, '__toString'))

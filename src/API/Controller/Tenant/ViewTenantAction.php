@@ -3,6 +3,7 @@
 namespace App\API\Controller\Tenant;
 
 use App\API\Controller\Action;
+use App\API\DTO\Tenant\TenantDTO;
 use App\Domain\Tenant\Model\Tenant;
 use App\Service\Tenant\Query\GetTenant\GetTenantQuery;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -36,6 +37,6 @@ class ViewTenantAction extends Action
 
         $this->logger->info("Tenant of id `'{$id}` was viewed.");
 
-        return $this->respondWithData(['name' => $tenant->getName()]);
+        return $this->respond(new TenantDTO($tenant));
     }
 }

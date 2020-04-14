@@ -3,6 +3,7 @@
 namespace App\API\Controller\User;
 
 use App\API\Controller\Action;
+use App\API\DTO\User\UserDTO;
 use App\Service\User\Query\GetUser\GetUserQuery;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
@@ -19,7 +20,7 @@ class ViewUserAction extends Action
      */
     protected function handle(): Response
     {
-        $id = (int) $this->resolveArg('id');
+        $id = $this->resolveArg('id');
         if (!$id) {
             throw new HttpNotFoundException($this->request, self::ERROR_NOT_FOUND);
         }
@@ -34,6 +35,6 @@ class ViewUserAction extends Action
 
         $this->logger->info("User of id `{id}` was viewed.");
 
-        return $this->respondWithData($user);
+        return $this->respond(new UserDTO($user));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Domain\Tenant\Model;
 
 use App\Domain\Common\BaseEntity;
 use App\Domain\Site\Model\Site;
+use App\Infrastructure\Core\Uuid\IUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
@@ -25,8 +26,10 @@ class Tenant extends BaseEntity
      */
     protected $sites;
 
-    public function __construct()
+    public function __construct(?IUuid $id = null)
     {
+        parent::__construct($id);
+
         $this->sites = new ArrayCollection();
     }
 

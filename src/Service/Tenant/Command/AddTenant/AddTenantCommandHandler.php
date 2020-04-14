@@ -30,6 +30,6 @@ class AddTenantCommandHandler implements ICommandHandler
      */
     public function handler($command)
     {
-        return $this->_repository->addRandom();
+        return $this->_repository->addRandom($command->id);
     }
 }

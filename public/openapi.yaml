@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: 'Playground API'
+  version: '0.1'
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /:
+    get:
+      tags:
+        - Other
+      summary: 'Welcome page'
+      responses:
+        '200':
+          description: Success
+  /users:
+    get:
+      tags:
+        - Users
+      summary: 'list users'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  '/users/{id}':
+    get:
+      tags:
+        - Users
+      summary: 'get user'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /tenants/:
+    post:
+      tags:
+        - Tenants
+      summary: 'add dummy tenant'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewItem'
+  '/tenants/{id}':
+    get:
+      tags:
+        - Tenants
+      summary: 'get tenant'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tenant'
+        default:
+          description: 'In all cases of errors'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      properties:
+        error:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+      type: object
+    ErrorItem:
+      properties:
+        type:
+          type: string
+        description:
+          type: string
+      type: object
+    NewItem:
+      properties:
+        id:
+          type: string
+      type: object
+    Tenant:
+      properties:
+        name:
+          type: string
+      type: object
+    User:
+      properties:
+        id:
+          type: string
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      type: object
+tags:
+  -
+    name: Other
+    description: 'About everything else'
+  -
+    name: Users
+    description: 'Everything about your Users'
+  -
+    name: Tenants
+    description: 'Everything about your Tenants'
+

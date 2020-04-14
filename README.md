@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/halilsafakkilic/Slim4-Playground/badge.svg?branch=master)](https://coveralls.io/github/halilsafakkilic/Slim4-Playground/?branch=master)
 
-You can use this skeleton application to browse current approaches, best practices and example implementations. This application uses the latest Slim 4 with Slim PSR-7 implementation, some approaches and tools (Dependency Injection (DI), In Memory DB, RDBMS, Single-database CQRS, Domain Driven Design (DDD), Layered Architecture, Repository Pattern, Doctrine ORM (Data Mapper, UnitOfWork Pattern), Unit + Integration Tests, Logging (Monolog based), Debugging (xDebug based)).
+You can use this skeleton application to browse current approaches, best practices and example implementations. This application uses the latest Slim 4 with Slim PSR-7 implementation, some approaches and tools (Dependency Injection (DI), In Memory DB, RDBMS, Single-database CQRS, Domain Driven Design (DDD), Layered Architecture, Repository Pattern, Doctrine ORM (Data Mapper, UnitOfWork Pattern), Unit + Integration Tests (PHPUnit), Logging (Monolog based), Debugging (xDebug based), PHP Annotations, UUID (ordered-time), OpenAPI).
 
 ## Install the Application
 
@@ -41,6 +41,12 @@ If you want to debug please use run this command
 
 ```bash
 composer debug
+```
+
+OpenAPI file regenerate command
+
+```bash
+composer generate:openapi
 ```
 
 That's it! Now go build something cool.

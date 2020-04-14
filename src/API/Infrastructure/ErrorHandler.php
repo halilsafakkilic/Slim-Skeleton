@@ -3,7 +3,6 @@
 namespace App\API\Infrastructure;
 
 use App\API\Controller\ActionError;
-use App\API\Controller\ActionPayload;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
@@ -57,8 +56,7 @@ class ErrorHandler extends SlimErrorHandler
             $error->setDescription($exception->getMessage());
         }
 
-        $payload = new ActionPayload($statusCode, null, $error);
-        $encodedPayload = json_encode($payload, JSON_PRETTY_PRINT);
+        $encodedPayload = json_encode($error, JSON_PRETTY_PRINT);
 
         $response = $this->responseFactory->createResponse($statusCode);
         $response->getBody()->write($encodedPayload);

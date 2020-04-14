@@ -6,5 +6,5 @@ use App\Infrastructure\Service\IQuery;
 
 class GetUserQuery implements IQuery
 {
-    public int $id;
+    public string $id;
 }

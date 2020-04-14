@@ -2,19 +2,27 @@
 
 namespace App\Domain\Common;
 
+use App\Infrastructure\Core\Uuid\IUuid;
+use App\Infrastructure\Core\Uuid\Uuid;
 use BadMethodCallException;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\UuidInterface;
 
-class BaseEntity
+abstract class BaseEntity implements IDomain
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid_ordered_time")
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidOrderedTimeGenerator")
      */
-    protected UuidInterface $id;
+    protected IUuid $id;
+
+    public function __construct(?IUuid $id)
+    {
+        if (is_null($id)) {
+            $id = Uuid::generate();
+        }
+
+        $this->id = $id;
+    }
 
     public function getID(): string
     {

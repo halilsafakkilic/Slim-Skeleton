@@ -3,7 +3,18 @@
 namespace App\API\Controller;
 
 use JsonSerializable;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(schema="Error", properties={
+ *     @OA\Property(property="error", type="array", @OA\Items(ref="#/components/schemas/ErrorItem"))
+ * })
+ *
+ * @OA\Schema(schema="ErrorItem", properties={
+ *     @OA\Property(property="type", type="string"),
+ *     @OA\Property(property="description", type="string")
+ * })
+ */
 class ActionError implements JsonSerializable
 {
     public const BAD_REQUEST = 'BAD_REQUEST';
@@ -80,8 +91,10 @@ class ActionError implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'type'        => $this->type,
-            'description' => $this->description,
+            'error' => [
+                'type'        => $this->type,
+                'description' => $this->description,
+            ]
         ];
     }
 }

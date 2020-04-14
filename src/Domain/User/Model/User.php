@@ -2,50 +2,46 @@
 
 namespace App\Domain\User\Model;
 
-use JsonSerializable;
+use App\Domain\Common\BaseEntity;
+use App\Infrastructure\Core\Uuid\IUuid;
+use Doctrine\ORM\Mapping as ORM;
 
-class User implements JsonSerializable
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Tenant")
+ */
+class User extends BaseEntity
 {
     /**
-     * @var int|null
+     * @ORM\Column(type="string")
      */
-    private $id;
+    private string $username;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", name="first_name")
      */
-    private $username;
+    private string $firstName;
 
     /**
-     * @var string
-     */
-    private $firstName;
-
-    /**
-     * @var string
+     * @ORM\Column(type="string", name="last_name")
      */
     private $lastName;
 
     /**
-     * @param int|null  $id
-     * @param string    $username
-     * @param string    $firstName
-     * @param string    $lastName
+     * User constructor.
+     *
+     * @param string     $username
+     * @param string     $firstName
+     * @param string     $lastName
+     * @param IUuid|null $id
      */
-    public function __construct(?int $id, string $username, string $firstName, string $lastName)
+    public function __construct(string $username, string $firstName, string $lastName, ?IUuid $id = null)
     {
-        $this->id = $id;
+        parent::__construct($id);
+
         $this->username = strtolower($username);
         $this->firstName = ucfirst($firstName);
         $this->lastName = ucfirst($lastName);
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**
@@ -70,18 +66,5 @@ class User implements JsonSerializable
     public function getLastName(): string
     {
         return $this->lastName;
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return [
-            'id' => $this->id,
-            'username' => $this->username,
-            'firstName' => $this->firstName,
-            'lastName' => $this->lastName,
-        ];
     }
 }
