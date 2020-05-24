@@ -2,7 +2,7 @@
 
 namespace App\API\DTO\Common;
 
-abstract class BaseDTO implements IDTO
+abstract class BaseDTO implements \JsonSerializable
 {
     public function jsonSerialize(): array
     {
